@@ -139,50 +139,50 @@ const ILLUSTRIOUS_18 = [
         name: "13 vs 2",
         playerHand: "13",
         dealerUpcard: "2",
-        basicStrategy: "Hit",
-        deviation: "Stand",
+        basicStrategy: "Stand",
+        deviation: "Hit",
         index: -1,
-        explanation: "Stand on 13 vs 2 at -1 or higher. This is a rare negative index - you actually stand at most counts and only hit at very negative counts."
+        explanation: "Basic strategy is to stand on 13 vs 2. Only hit when the true count is below -1 (very negative counts)."
     },
     {
         id: 15,
         name: "12 vs 4",
         playerHand: "12",
         dealerUpcard: "4",
-        basicStrategy: "Hit",
-        deviation: "Stand",
+        basicStrategy: "Stand",
+        deviation: "Hit",
         index: 0,
-        explanation: "Stand on 12 vs 4 at 0 or higher. Basic strategy says to stand on 12 vs 4, but this confirms it - you only hit at negative counts."
+        explanation: "Basic strategy is to stand on 12 vs 4. Only hit when the true count is negative (below 0)."
     },
     {
         id: 16,
         name: "12 vs 5",
         playerHand: "12",
         dealerUpcard: "5",
-        basicStrategy: "Hit",
-        deviation: "Stand",
+        basicStrategy: "Stand",
+        deviation: "Hit",
         index: -2,
-        explanation: "Stand on 12 vs 5 at -2 or higher. Another negative index - the dealer's 5 is so weak that you stand even at moderately negative counts."
+        explanation: "Basic strategy is to stand on 12 vs 5. Only hit when the true count is below -2."
     },
     {
         id: 17,
         name: "12 vs 6",
         playerHand: "12",
         dealerUpcard: "6",
-        basicStrategy: "Hit",
-        deviation: "Stand",
+        basicStrategy: "Stand",
+        deviation: "Hit",
         index: -1,
-        explanation: "Stand on 12 vs 6 at -1 or higher. The dealer's 6 is their worst upcard - you stand at almost all counts."
+        explanation: "Basic strategy is to stand on 12 vs 6. Only hit when the true count is below -1."
     },
     {
         id: 18,
         name: "13 vs 3",
         playerHand: "13",
         dealerUpcard: "3",
-        basicStrategy: "Hit",
-        deviation: "Stand",
+        basicStrategy: "Stand",
+        deviation: "Hit",
         index: -2,
-        explanation: "Stand on 13 vs 3 at -2 or higher. A negative index means you stand at most counts and only hit when the count is very negative."
+        explanation: "Basic strategy is to stand on 13 vs 3. Only hit when the true count is below -2."
     }
 ];
 
