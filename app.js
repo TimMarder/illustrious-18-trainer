@@ -248,8 +248,9 @@ class IllustriousTrainer {
         // Set details
         document.getElementById('feedback-basic').innerHTML = 
             `Basic Strategy: <strong>${q.deviation.basicStrategy}</strong>`;
+        const indexDisplay = q.deviation.index >= 0 ? `+${q.deviation.index}` : `${q.deviation.index}`;
         document.getElementById('feedback-deviation').innerHTML = 
-            `Deviation: <strong>${q.deviation.deviation} at +${q.deviation.index}</strong>`;
+            `Deviation: <strong>${q.deviation.deviation} at ${indexDisplay}</strong>`;
         document.getElementById('feedback-explanation').textContent = q.deviation.explanation;
         
         // Handle edge case info
@@ -312,7 +313,7 @@ class IllustriousTrainer {
                 <td>${d.dealerUpcard}</td>
                 <td>${d.basicStrategy}</td>
                 <td>${d.deviation}</td>
-                <td class="index-cell">+${d.index}</td>
+                <td class="index-cell">${d.index >= 0 ? '+' + d.index : d.index}</td>
             `;
             tbody.appendChild(row);
         });
