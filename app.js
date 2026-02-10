@@ -151,8 +151,18 @@ class IllustriousTrainer {
             scenarioTag.textContent = 'Hard Total';
         }
 
-        // Enable all buttons
+        // Show/hide buttons based on scenario type
+        const isInsurance = q.deviation.playerHand === 'Any' && q.deviation.dealerUpcard === 'A';
+        
         document.querySelectorAll('.action-btn').forEach(btn => {
+            const action = btn.dataset.action;
+            if (isInsurance) {
+                // Insurance scenario: only show Insurance/No Insurance
+                btn.style.display = (action === 'Insurance' || action === 'No Insurance') ? 'flex' : 'none';
+            } else {
+                // Regular hand: show Hit/Stand/Double/Split, hide Insurance options
+                btn.style.display = (action === 'Insurance' || action === 'No Insurance') ? 'none' : 'flex';
+            }
             btn.disabled = false;
             btn.style.opacity = '1';
         });

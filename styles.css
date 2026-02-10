@@ -208,6 +208,7 @@ body {
 
 .dealer-hand, .player-hand {
     text-align: center;
+    margin-top: 20px;
 }
 
 .card {
