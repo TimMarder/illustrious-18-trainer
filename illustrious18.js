@@ -161,8 +161,8 @@ const ILLUSTRIOUS_18 = [
         dealerUpcard: "5",
         basicStrategy: "Stand",
         deviation: "Hit",
-        index: -2,
-        explanation: "Basic strategy is to stand on 12 vs 5. Only hit when the true count is below -2."
+        index: -1,
+        explanation: "Stand on 12 vs 5 at -1 or higher. Only hit when the true count is below -1."
     },
     {
         id: 17,
