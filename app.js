@@ -77,7 +77,14 @@ class IllustriousTrainer {
 
     generateQuestion() {
         // Pick a random deviation
-        const deviation = ILLUSTRIOUS_18[Math.floor(Math.random() * ILLUSTRIOUS_18.length)];
+        let deviation = ILLUSTRIOUS_18[Math.floor(Math.random() * ILLUSTRIOUS_18.length)];
+        
+        // Reduce insurance frequency to ~2% (insurance is 1/18 = 5.5%, so only accept it 36% of the time)
+        if (deviation.id === 1 && Math.random() > 0.36) {
+            // Pick a non-insurance deviation instead
+            const nonInsuranceDeviations = ILLUSTRIOUS_18.filter(d => d.id !== 1);
+            deviation = nonInsuranceDeviations[Math.floor(Math.random() * nonInsuranceDeviations.length)];
+        }
         
         // Generate true count - include edge cases 40% of the time
         const isEdgeCase = Math.random() < 0.4;
@@ -153,6 +160,13 @@ class IllustriousTrainer {
 
         // Show/hide buttons based on scenario type
         const isInsurance = q.deviation.playerHand === 'Any' && q.deviation.dealerUpcard === 'A';
+        const answerButtons = document.querySelector('.answer-buttons');
+        
+        if (isInsurance) {
+            answerButtons.classList.add('insurance-mode');
+        } else {
+            answerButtons.classList.remove('insurance-mode');
+        }
         
         document.querySelectorAll('.action-btn').forEach(btn => {
             const action = btn.dataset.action;
