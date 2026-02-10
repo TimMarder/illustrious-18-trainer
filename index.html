@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Illustrious 18 Trainer - Master Card Counting Deviations</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🃏</span>
+                <h1>Illustrious 18 Trainer</h1>
+            </div>
+            <nav class="nav">
+                <button class="nav-btn active" data-view="game">Practice</button>
+                <button class="nav-btn" data-view="study">Study Chart</button>
+                <button class="nav-btn" data-view="stats">Stats</button>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Game View -->
+            <div id="game-view" class="view active">
+                <!-- Score Bar -->
+                <div class="score-bar">
+                    <div class="stat">
+                        <span class="stat-label">Score</span>
+                        <span class="stat-value" id="score">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Streak</span>
+                        <span class="stat-value" id="streak">0</span>
+                        <span class="fire-emoji" id="streak-fire">🔥</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Accuracy</span>
+                        <span class="stat-value" id="accuracy">0%</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Questions</span>
+                        <span class="stat-value" id="total-questions">0</span>
+                    </div>
+                </div>
+
+                <!-- Game Area -->
+                <div class="game-area">
+                    <!-- Scenario Card -->
+                    <div class="scenario-card">
+                        <div class="true-count-badge">
+                            <span class="badge-label">True Count</span>
+                            <span class="badge-value" id="true-count">+3</span>
+                        </div>
+                        
+                        <div class="hands-display">
+                            <div class="dealer-hand">
+                                <span class="hand-label">Dealer Shows</span>
+                                <div class="card dealer-card" id="dealer-card">
+                                    <span class="card-value">10</span>
+                                    <span class="card-suit">♠</span>
+                                </div>
+                            </div>
+                            
+                            <div class="vs-divider">VS</div>
+                            
+                            <div class="player-hand">
+                                <span class="hand-label">You Have</span>
+                                <div class="player-cards" id="player-cards">
+                                    <div class="card">
+                                        <span class="card-value">16</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="scenario-info">
+                            <span class="scenario-tag" id="scenario-type">Hard Total</span>
+                        </div>
+                    </div>
+
+                    <!-- Question -->
+                    <div class="question-box">
+                        <h2>What's the correct play?</h2>
+                        <p class="question-hint">Consider the true count and whether to deviate from basic strategy.</p>
+                    </div>
+
+                    <!-- Answer Buttons -->
+                    <div class="answer-buttons">
+                        <button class="action-btn hit" data-action="Hit">
+                            <span class="btn-icon">👇</span>
+                            <span class="btn-text">Hit</span>
+                        </button>
+                        <button class="action-btn stand" data-action="Stand">
+                            <span class="btn-icon">✋</span>
+                            <span class="btn-text">Stand</span>
+                        </button>
+                        <button class="action-btn double" data-action="Double">
+                            <span class="btn-icon">💰</span>
+                            <span class="btn-text">Double</span>
+                        </button>
+                        <button class="action-btn split" data-action="Split">
+                            <span class="btn-icon">✂️</span>
+                            <span class="btn-text">Split</span>
+                        </button>
+                        <button class="action-btn insurance" data-action="Insurance">
+                            <span class="btn-icon">🛡️</span>
+                            <span class="btn-text">Insurance</span>
+                        </button>
+                        <button class="action-btn no-insurance" data-action="No Insurance">
+                            <span class="btn-icon">❌</span>
+                            <span class="btn-text">No Insurance</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Feedback Modal -->
+                <div id="feedback-modal" class="feedback-modal hidden">
+                    <div class="feedback-content">
+                        <div class="feedback-icon" id="feedback-icon">✅</div>
+                        <h3 id="feedback-title">Correct!</h3>
+                        <div class="feedback-details">
+                            <p id="feedback-basic">Basic Strategy: <strong>Hit</strong></p>
+                            <p id="feedback-deviation">Deviation: <strong>Stand at +0</strong></p>
+                            <p id="feedback-explanation" class="explanation">At true count 0 or higher, standing becomes the better play...</p>
+                            <div class="edge-case-info" id="edge-case-info">
+                                <span class="edge-badge">Edge Case</span>
+                                <p id="edge-explanation">This is close to the index - remember the nuances!</p>
+                            </div>
+                        </div>
+                        <button class="next-btn" id="next-btn">Next Question →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Study View -->
+            <div id="study-view" class="view">
+                <div class="study-header">
+                    <h2>The Illustrious 18 Chart</h2>
+                    <p>Memorize these index numbers. They're the 18 most valuable deviations from basic strategy.</p>
+                </div>
+                
+                <div class="chart-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="hard">Hard Totals</button>
+                    <button class="filter-btn" data-filter="soft">Soft Hands</button>
+                    <button class="filter-btn" data-filter="pairs">Pairs</button>
+                    <button class="filter-btn" data-filter="insurance">Insurance</button>
+                </div>
+
+                <div class="chart-container">
+                    <table class="deviation-table">
+                        <thead>
+                            <tr>
+                                <th>Play</th>
+                                <th>Your Hand</th>
+                                <th>vs Dealer</th>
+                                <th>Basic Strategy</th>
+                                <th>Deviation</th>
+                                <th>Index</th>
+                            </tr>
+                        </thead>
+                        <tbody id="chart-body">
+                            <!-- Filled by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Stats View -->
+            <div id="stats-view" class="view">
+                <div class="stats-header">
+                    <h2>Your Progress</h2>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-card-value" id="stats-total">0</span>
+                        <span class="stat-card-label">Total Questions</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-card-value" id="stats-correct">0</span>
+                        <span class="stat-card-label">Correct</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-card-value" id="stats-accuracy">0%</span>
+                        <span class="stat-card-label">Accuracy</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-card-value" id="stats-best-streak">0</span>
+                        <span class="stat-card-label">Best Streak</span>
+                    </div>
+                </div>
+
+                <div class="weak-spots">
+                    <h3>Focus Areas</h3>
+                    <p class="weak-spots-hint">These are the deviations you need to practice more:</p>
+                    <div class="weak-spots-list" id="weak-spots-list">
+                        <p class="empty-state">Play some rounds to see your weak spots!</p>
+                    </div>
+                </div>
+
+                <button class="reset-btn" id="reset-stats">Reset Stats</button>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Illustrious 18 Trainer - Master the most important deviations in card counting</p>
+        </footer>
+    </div>
+
+    <script src="illustrious18.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
