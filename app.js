@@ -192,7 +192,10 @@ class IllustriousTrainer {
         if (!this.currentQuestion) return;
 
         const q = this.currentQuestion;
-        const isCorrect = answer === q.correctAnswer;
+        // Normalize answer for comparison (handle "Insurance" vs "Take Insurance")
+        const normalizedAnswer = answer === "Take Insurance" ? "Insurance" : answer;
+        const normalizedCorrect = q.correctAnswer === "Take Insurance" ? "Insurance" : q.correctAnswer;
+        const isCorrect = normalizedAnswer === normalizedCorrect;
 
         // Update stats
         this.totalQuestions++;
@@ -295,7 +298,6 @@ class IllustriousTrainer {
         if (filter !== 'all') {
             deviations = deviations.filter(d => {
                 if (filter === 'hard') return !d.playerHand.includes('A') && !d.playerHand.includes(',');
-                if (filter === 'soft') return d.playerHand.includes('A');
                 if (filter === 'pairs') return d.playerHand.includes(',');
                 if (filter === 'insurance') return d.playerHand === 'Any';
                 return true;

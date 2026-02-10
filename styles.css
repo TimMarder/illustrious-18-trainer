@@ -211,6 +211,14 @@ body {
     margin-top: 20px;
 }
 
+.player-cards {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+}
+
 .card {
     width: 100px;
     height: 140px;
