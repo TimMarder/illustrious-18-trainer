@@ -203,16 +203,17 @@ const EDGE_CASES = {
     // Generate explanation for edge cases
     getEdgeCaseExplanation(trueCount, index, deviation, basicStrategy) {
         const diff = trueCount - index;
+        const trueCountDisplay = trueCount >= 0 ? `+${trueCount}` : `${trueCount}`;
         if (diff === 0) {
             return `This is AT the index (${index}). Both plays are nearly equal in value here.`;
         } else if (diff === 1) {
-            return `True count (+${trueCount}) is 1 above the index (${index}). The deviation is clearly correct.`;
+            return `True count (${trueCountDisplay}) is 1 above the index (${index}). The deviation is clearly correct.`;
         } else if (diff === -1) {
-            return `True count (+${trueCount}) is 1 below the index (${index}). Basic strategy is correct here, but it's close.`;
+            return `True count (${trueCountDisplay}) is 1 below the index (${index}). Basic strategy is correct here, but it's close.`;
         } else if (diff > 1) {
-            return `True count (+${trueCount}) is well above the index (${index}). The deviation is strongly correct.`;
+            return `True count (${trueCountDisplay}) is well above the index (${index}). The deviation is strongly correct.`;
         } else {
-            return `True count (${trueCount}) is well below the index (${index}). Stick to basic strategy.`;
+            return `True count (${trueCountDisplay}) is well below the index (${index}). Stick to basic strategy.`;
         }
     }
 };
