@@ -56,46 +56,6 @@ const ILLUSTRIOUS_18 = [
     },
     {
         id: 6,
-        name: "12 vs 3",
-        playerHand: "12",
-        dealerUpcard: "3",
-        basicStrategy: "Hit",
-        deviation: "Stand",
-        index: 2,
-        explanation: "Stand on 12 vs 3 at +2 or higher. The dealer's weak upcard combined with a rich deck makes standing better."
-    },
-    {
-        id: 7,
-        name: "12 vs 2",
-        playerHand: "12",
-        dealerUpcard: "2",
-        basicStrategy: "Hit",
-        deviation: "Stand",
-        index: 3,
-        explanation: "Stand on 12 vs 2 at +3 or higher. The dealer's 2 is deceptively strong, requiring a higher count to deviate."
-    },
-    {
-        id: 8,
-        name: "11 vs A",
-        playerHand: "11",
-        dealerUpcard: "A",
-        basicStrategy: "Hit",
-        deviation: "Double",
-        index: 1,
-        explanation: "Double 11 vs Ace at +1 or higher. With a rich deck, doubling becomes profitable even against the dealer's strong ace."
-    },
-    {
-        id: 9,
-        name: "9 vs 7",
-        playerHand: "9",
-        dealerUpcard: "7",
-        basicStrategy: "Hit",
-        deviation: "Double",
-        index: 3,
-        explanation: "Double 9 vs 7 at +3 or higher. The 7 is weaker than it appears, and a high count makes doubling profitable."
-    },
-    {
-        id: 10,
         name: "10 vs 10",
         playerHand: "10",
         dealerUpcard: "10",
@@ -105,17 +65,37 @@ const ILLUSTRIOUS_18 = [
         explanation: "Double 10 vs 10 at +4 or higher. This is a very aggressive play requiring a massive player edge."
     },
     {
-        id: 11,
-        name: "10 vs A",
-        playerHand: "10",
+        id: 7,
+        name: "12 vs 3",
+        playerHand: "12",
+        dealerUpcard: "3",
+        basicStrategy: "Hit",
+        deviation: "Stand",
+        index: 2,
+        explanation: "Stand on 12 vs 3 at +2 or higher. The dealer's weak upcard combined with a rich deck makes standing better."
+    },
+    {
+        id: 8,
+        name: "12 vs 2",
+        playerHand: "12",
+        dealerUpcard: "2",
+        basicStrategy: "Hit",
+        deviation: "Stand",
+        index: 3,
+        explanation: "Stand on 12 vs 2 at +3 or higher. The dealer's 2 is deceptively strong, requiring a higher count to deviate."
+    },
+    {
+        id: 9,
+        name: "11 vs A",
+        playerHand: "11",
         dealerUpcard: "A",
         basicStrategy: "Hit",
         deviation: "Double",
-        index: 3,
-        explanation: "Double 10 vs Ace at +3 or higher. The ace is the dealer's strongest card, requiring a high count to double."
+        index: 1,
+        explanation: "Double 11 vs Ace at +1 or higher. With a rich deck, doubling becomes profitable even against the dealer's strong ace."
     },
     {
-        id: 12,
+        id: 10,
         name: "9 vs 2",
         playerHand: "9",
         dealerUpcard: "2",
@@ -125,54 +105,74 @@ const ILLUSTRIOUS_18 = [
         explanation: "Double 9 vs 2 at +1 or higher. The dealer's weak 2 makes this a profitable double with any positive count."
     },
     {
-        id: 13,
-        name: "8 vs 6",
-        playerHand: "8",
-        dealerUpcard: "6",
-        basicStrategy: "Hit",
-        deviation: "Double",
-        index: 2,
-        explanation: "Double 8 vs 6 at +2 or higher. The dealer's 6 is their worst upcard, making this aggressive play viable."
-    },
-    {
-        id: 14,
-        name: "8 vs 5",
-        playerHand: "8",
-        dealerUpcard: "5",
+        id: 11,
+        name: "10 vs A",
+        playerHand: "10",
+        dealerUpcard: "A",
         basicStrategy: "Hit",
         deviation: "Double",
         index: 4,
-        explanation: "Double 8 vs 5 at +4 or higher. Requires a higher count than against 6 due to slightly better dealer odds."
+        explanation: "Double 10 vs Ace at +4 or higher. The ace is the dealer's strongest card, requiring a high count to double."
+    },
+    {
+        id: 12,
+        name: "9 vs 7",
+        playerHand: "9",
+        dealerUpcard: "7",
+        basicStrategy: "Hit",
+        deviation: "Double",
+        index: 3,
+        explanation: "Double 9 vs 7 at +3 or higher. The 7 is weaker than it appears, and a high count makes doubling profitable."
+    },
+    {
+        id: 13,
+        name: "16 vs 9",
+        playerHand: "16",
+        dealerUpcard: "9",
+        basicStrategy: "Hit",
+        deviation: "Stand",
+        index: 5,
+        explanation: "Stand on 16 vs 9 at +5 or higher. Against the dealer's strong 9, you need a very high count to stand."
+    },
+    {
+        id: 14,
+        name: "13 vs 2",
+        playerHand: "13",
+        dealerUpcard: "2",
+        basicStrategy: "Hit",
+        deviation: "Stand",
+        index: -1,
+        explanation: "Stand on 13 vs 2 at -1 or higher. This is a rare negative index - you actually stand at most counts and only hit at very negative counts."
     },
     {
         id: 15,
-        name: "A,7 vs 2",
-        playerHand: "A,7",
-        dealerUpcard: "2",
-        basicStrategy: "Stand",
-        deviation: "Double",
-        index: 3,
-        explanation: "Double soft 18 vs 2 at +3 or higher. With a rich deck, maximizing your bet on this strong hand is profitable."
+        name: "12 vs 4",
+        playerHand: "12",
+        dealerUpcard: "4",
+        basicStrategy: "Hit",
+        deviation: "Stand",
+        index: 0,
+        explanation: "Stand on 12 vs 4 at 0 or higher. Basic strategy says to stand on 12 vs 4, but this confirms it - you only hit at negative counts."
     },
     {
         id: 16,
-        name: "A,8 vs 6",
-        playerHand: "A,8",
-        dealerUpcard: "6",
-        basicStrategy: "Stand",
-        deviation: "Double",
-        index: 1,
-        explanation: "Double soft 19 vs 6 at +1 or higher. Against the dealer's worst upcard, doubling soft 19 is profitable."
+        name: "12 vs 5",
+        playerHand: "12",
+        dealerUpcard: "5",
+        basicStrategy: "Hit",
+        deviation: "Stand",
+        index: -2,
+        explanation: "Stand on 12 vs 5 at -2 or higher. Another negative index - the dealer's 5 is so weak that you stand even at moderately negative counts."
     },
     {
         id: 17,
-        name: "A,8 vs 5",
-        playerHand: "A,8",
-        dealerUpcard: "5",
-        basicStrategy: "Stand",
-        deviation: "Double",
-        index: 0,
-        explanation: "Double soft 19 vs 5 at 0 or higher. The dealer's weak 5 makes doubling soft 19 profitable even at neutral counts."
+        name: "12 vs 6",
+        playerHand: "12",
+        dealerUpcard: "6",
+        basicStrategy: "Hit",
+        deviation: "Stand",
+        index: -1,
+        explanation: "Stand on 12 vs 6 at -1 or higher. The dealer's 6 is their worst upcard - you stand at almost all counts."
     },
     {
         id: 18,
@@ -181,8 +181,8 @@ const ILLUSTRIOUS_18 = [
         dealerUpcard: "3",
         basicStrategy: "Hit",
         deviation: "Stand",
-        index: 2,
-        explanation: "Stand on 13 vs 3 at +2 or higher. Similar to 12 vs 3, but you need a slightly higher count due to your stronger hand."
+        index: -2,
+        explanation: "Stand on 13 vs 3 at -2 or higher. A negative index means you stand at most counts and only hit when the count is very negative."
     }
 ];
 

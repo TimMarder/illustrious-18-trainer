@@ -42,19 +42,19 @@ The app specifically includes scenarios where the true count is close to the ind
 | 3 | 15 vs 10 | +4 | Hit | Stand |
 | 4 | 10,10 vs 5 | +5 | Stand | Split |
 | 5 | 10,10 vs 6 | +4 | Stand | Split |
-| 6 | 12 vs 3 | +2 | Hit | Stand |
-| 7 | 12 vs 2 | +3 | Hit | Stand |
-| 8 | 11 vs A | +1 | Hit | Double |
-| 9 | 9 vs 7 | +3 | Hit | Double |
-| 10 | 10 vs 10 | +4 | Hit | Double |
-| 11 | 10 vs A | +3 | Hit | Double |
-| 12 | 9 vs 2 | +1 | Hit | Double |
-| 13 | 8 vs 6 | +2 | Hit | Double |
-| 14 | 8 vs 5 | +4 | Hit | Double |
-| 15 | A,7 vs 2 | +3 | Stand | Double |
-| 16 | A,8 vs 6 | +1 | Stand | Double |
-| 17 | A,8 vs 5 | +0 | Stand | Double |
-| 18 | 13 vs 3 | +2 | Hit | Stand |
+| 6 | 10 vs 10 | +4 | Hit | Double |
+| 7 | 12 vs 3 | +2 | Hit | Stand |
+| 8 | 12 vs 2 | +3 | Hit | Stand |
+| 9 | 11 vs A | +1 | Hit | Double |
+| 10 | 9 vs 2 | +1 | Hit | Double |
+| 11 | 10 vs A | +4 | Hit | Double |
+| 12 | 9 vs 7 | +3 | Hit | Double |
+| 13 | 16 vs 9 | +5 | Hit | Stand |
+| 14 | 13 vs 2 | -1 | Hit | Stand |
+| 15 | 12 vs 4 | 0 | Hit | Stand |
+| 16 | 12 vs 5 | -2 | Hit | Stand |
+| 17 | 12 vs 6 | -1 | Hit | Stand |
+| 18 | 13 vs 3 | -2 | Hit | Stand |
 
 ## Getting Started
 
