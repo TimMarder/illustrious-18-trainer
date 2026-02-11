@@ -100,7 +100,12 @@ class IllustriousTrainer {
         }
         
         // Determine correct answer
-        const shouldDeviate = trueCount >= deviation.index;
+        // For "below" deviations (negative index), deviate when count is BELOW index
+        // For standard deviations, deviate when count is AT OR ABOVE index
+        const isBelowDeviation = deviation.indexDirection === "below";
+        const shouldDeviate = isBelowDeviation 
+            ? trueCount < deviation.index 
+            : trueCount >= deviation.index;
         const correctAnswer = shouldDeviate ? deviation.deviation : deviation.basicStrategy;
 
         this.currentQuestion = {
@@ -248,7 +253,13 @@ class IllustriousTrainer {
         // Set details
         document.getElementById('feedback-basic').innerHTML = 
             `Basic Strategy: <strong>${q.deviation.basicStrategy}</strong>`;
-        const indexDisplay = q.deviation.index >= 0 ? `+${q.deviation.index}` : `${q.deviation.index}`;
+        // Format index display: for "below" deviations show as "0-" meaning "0 or lower"
+        let indexDisplay;
+        if (q.deviation.indexDirection === "below") {
+            indexDisplay = q.deviation.index <= 0 ? `${q.deviation.index}-` : `${q.deviation.index}-`;
+        } else {
+            indexDisplay = q.deviation.index >= 0 ? `+${q.deviation.index}` : `${q.deviation.index}`;
+        }
         document.getElementById('feedback-deviation').innerHTML = 
             `Deviation: <strong>${q.deviation.deviation} at ${indexDisplay}</strong>`;
         document.getElementById('feedback-explanation').textContent = q.deviation.explanation;
@@ -307,13 +318,17 @@ class IllustriousTrainer {
 
         deviations.forEach(d => {
             const row = document.createElement('tr');
+            // Format index: for "below" deviations show as "0-" meaning "0 or lower"
+            const indexDisplay = d.indexDirection === "below" 
+                ? `${d.index}-` 
+                : (d.index >= 0 ? '+' + d.index : d.index);
             row.innerHTML = `
                 <td><strong>${d.name}</strong></td>
                 <td>${d.playerHand}</td>
                 <td>${d.dealerUpcard}</td>
                 <td>${d.basicStrategy}</td>
                 <td>${d.deviation}</td>
-                <td class="index-cell">${d.index >= 0 ? '+' + d.index : d.index}</td>
+                <td class="index-cell">${indexDisplay}</td>
             `;
             tbody.appendChild(row);
         });

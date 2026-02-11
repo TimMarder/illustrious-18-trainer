@@ -142,6 +142,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Stand",
         deviation: "Hit",
         index: -1,
+        indexDirection: "below",
         explanation: "Basic strategy is to stand on 13 vs 2. Only hit when the true count is below -1 (very negative counts)."
     },
     {
@@ -152,7 +153,8 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Stand",
         deviation: "Hit",
         index: 0,
-        explanation: "Basic strategy is to stand on 12 vs 4. Only hit when the true count is negative (below 0)."
+        indexDirection: "below",
+        explanation: "Basic strategy is to stand on 12 vs 4. Only hit when the true count is 0 or lower (0-)."
     },
     {
         id: 16,
@@ -162,6 +164,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Stand",
         deviation: "Hit",
         index: -1,
+        indexDirection: "below",
         explanation: "Stand on 12 vs 5 at -1 or higher. Only hit when the true count is below -1."
     },
     {
@@ -172,6 +175,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Stand",
         deviation: "Hit",
         index: -1,
+        indexDirection: "below",
         explanation: "Basic strategy is to stand on 12 vs 6. Only hit when the true count is below -1."
     },
     {
@@ -182,6 +186,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Stand",
         deviation: "Hit",
         index: -2,
+        indexDirection: "below",
         explanation: "Basic strategy is to stand on 13 vs 3. Only hit when the true count is below -2."
     }
 ];
