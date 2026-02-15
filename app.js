@@ -13,6 +13,7 @@ class IllustriousTrainer {
         this.currentQuestion = null;
         this.questionHistory = [];
         this.weakSpots = new Map();
+        this.showExplanations = true;
         
         this.init();
     }
@@ -59,6 +60,15 @@ class IllustriousTrainer {
                 this.resetStats();
             }
         });
+
+        // Settings toggle
+        const explanationsToggle = document.getElementById('show-explanations');
+        if (explanationsToggle) {
+            explanationsToggle.addEventListener('change', (e) => {
+                this.showExplanations = e.target.checked;
+                this.saveStats();
+            });
+        }
     }
 
     switchView(view) {
@@ -227,7 +237,16 @@ class IllustriousTrainer {
         });
 
         this.updateUI();
-        this.showFeedback(isCorrect, answer);
+        
+        if (this.showExplanations) {
+            this.showFeedback(isCorrect, answer);
+        } else {
+            this.showQuickFeedback(isCorrect);
+            setTimeout(() => {
+                this.generateQuestion();
+            }, 600);
+        }
+        
         this.saveStats();
     }
 
@@ -280,6 +299,22 @@ class IllustriousTrainer {
 
     hideFeedback() {
         document.getElementById('feedback-modal').classList.add('hidden');
+    }
+
+    showQuickFeedback(isCorrect) {
+        const feedbackEl = document.getElementById('quick-feedback');
+        const iconEl = document.getElementById('quick-feedback-icon');
+        
+        iconEl.textContent = isCorrect ? '✅' : '❌';
+        feedbackEl.classList.remove('hidden');
+        
+        // Remove and re-add the element to restart animation
+        const newFeedbackEl = feedbackEl.cloneNode(true);
+        feedbackEl.parentNode.replaceChild(newFeedbackEl, feedbackEl);
+        
+        setTimeout(() => {
+            newFeedbackEl.classList.add('hidden');
+        }, 500);
     }
 
     updateUI() {
@@ -376,7 +411,8 @@ class IllustriousTrainer {
             totalQuestions: this.totalQuestions,
             correctAnswers: this.correctAnswers,
             questionHistory: this.questionHistory.slice(-100), // Keep last 100
-            weakSpots: Array.from(this.weakSpots.entries())
+            weakSpots: Array.from(this.weakSpots.entries()),
+            showExplanations: this.showExplanations
         };
         localStorage.setItem('i18-trainer-stats', JSON.stringify(data));
     }
@@ -392,6 +428,13 @@ class IllustriousTrainer {
             this.correctAnswers = parsed.correctAnswers || 0;
             this.questionHistory = parsed.questionHistory || [];
             this.weakSpots = new Map(parsed.weakSpots || []);
+            this.showExplanations = parsed.showExplanations !== undefined ? parsed.showExplanations : true;
+            
+            // Update toggle to match loaded setting
+            const toggle = document.getElementById('show-explanations');
+            if (toggle) {
+                toggle.checked = this.showExplanations;
+            }
         }
     }
 
