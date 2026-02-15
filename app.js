@@ -100,11 +100,11 @@ class IllustriousTrainer {
         }
         
         // Determine correct answer
-        // For "below" deviations (negative index), deviate when count is BELOW index
+        // For "below" deviations (negative index), deviate when count is AT OR BELOW index
         // For standard deviations, deviate when count is AT OR ABOVE index
         const isBelowDeviation = deviation.indexDirection === "below";
         const shouldDeviate = isBelowDeviation 
-            ? trueCount < deviation.index 
+            ? trueCount <= deviation.index 
             : trueCount >= deviation.index;
         const correctAnswer = shouldDeviate ? deviation.deviation : deviation.basicStrategy;
 
