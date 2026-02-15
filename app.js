@@ -78,6 +78,13 @@ class IllustriousTrainer {
         document.getElementById(`${view}-view`).classList.add('active');
         document.querySelector(`[data-view="${view}"]`).classList.add('active');
 
+        // Hide any visible feedback when switching views
+        this.hideFeedback();
+        const quickFeedback = document.getElementById('quick-feedback');
+        if (quickFeedback) {
+            quickFeedback.classList.add('hidden');
+        }
+
         if (view === 'study') {
             this.renderChart('all');
         } else if (view === 'stats') {
