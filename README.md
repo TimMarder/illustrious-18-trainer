@@ -2,7 +2,7 @@
 
 A professional web-based training application for mastering the Illustrious 18 - the 18 most important card counting deviations in blackjack.
 
-![Illustrious 18 Trainer](screenshot.jpg)
+<img src="screenshot.jpg" alt="Illustrious 18 Trainer" width="600">
 
 ## What are the Illustrious 18?
 
