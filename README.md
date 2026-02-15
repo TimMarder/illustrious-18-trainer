@@ -50,11 +50,11 @@ The app specifically includes scenarios where the true count is close to the ind
 | 11 | 10 vs A | +4 | Hit | Double |
 | 12 | 9 vs 7 | +3 | Hit | Double |
 | 13 | 16 vs 9 | +5 | Hit | Stand |
-| 14 | 13 vs 2 | -1 | Stand | Hit |
+| 14 | 13 vs 2 | -2 | Stand | Hit |
 | 15 | 12 vs 4 | 0 | Stand | Hit |
-| 16 | 12 vs 5 | -1 | Stand | Hit |
-| 17 | 12 vs 6 | -1 | Stand | Hit |
-| 18 | 13 vs 3 | -2 | Stand | Hit |
+| 16 | 12 vs 5 | -2 | Stand | Hit |
+| 17 | 12 vs 6 | -2 | Stand | Hit |
+| 18 | 13 vs 3 | -3 | Stand | Hit |
 
 ## Getting Started
 
