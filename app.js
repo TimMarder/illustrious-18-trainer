@@ -82,6 +82,8 @@ class IllustriousTrainer {
             this.renderChart('all');
         } else if (view === 'stats') {
             this.renderStats();
+        } else if (view === 'settings') {
+            this.renderSettings();
         }
     }
 
@@ -450,6 +452,14 @@ class IllustriousTrainer {
         localStorage.removeItem('i18-trainer-stats');
         this.updateUI();
         this.renderStats();
+    }
+
+    renderSettings() {
+        // Ensure toggle reflects current state
+        const toggle = document.getElementById('show-explanations');
+        if (toggle) {
+            toggle.checked = this.showExplanations;
+        }
     }
 }
 

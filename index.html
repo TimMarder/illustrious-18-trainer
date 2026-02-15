@@ -19,6 +19,7 @@
                 <button class="nav-btn active" data-view="game">Practice</button>
                 <button class="nav-btn" data-view="study">Study Chart</button>
                 <button class="nav-btn" data-view="stats">Stats</button>
+                <button class="nav-btn" data-view="settings">Settings</button>
             </nav>
         </header>
 
@@ -207,16 +208,28 @@
                     </div>
                 </div>
 
-                <div class="settings-section">
-                    <h3>Settings</h3>
-                    <label class="toggle-label">
-                        <input type="checkbox" id="show-explanations" checked>
-                        <span class="toggle-slider"></span>
-                        <span class="toggle-text">Show explanations after each answer</span>
-                    </label>
+                <button class="reset-btn" id="reset-stats">Reset Stats</button>
+            </div>
+
+            <!-- Settings View -->
+            <div id="settings-view" class="view">
+                <div class="settings-header">
+                    <h2>Settings</h2>
+                    <p>Customize your training experience.</p>
                 </div>
 
-                <button class="reset-btn" id="reset-stats">Reset Stats</button>
+                <div class="settings-container">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Show Explanations</h4>
+                            <p>Display detailed feedback after each answer. Turn off for faster practice.</p>
+                        </div>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="show-explanations" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
             </div>
         </main>
 
