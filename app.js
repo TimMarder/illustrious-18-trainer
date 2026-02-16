@@ -14,7 +14,8 @@ class IllustriousTrainer {
         this.questionHistory = [];
         this.weakSpots = new Map();
         this.showExplanations = true;
-        
+        this.quickFeedbackTimeout = null;
+
         this.init();
     }
 
@@ -74,7 +75,7 @@ class IllustriousTrainer {
     switchView(view) {
         document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        
+
         document.getElementById(`${view}-view`).classList.add('active');
         document.querySelector(`[data-view="${view}"]`).classList.add('active');
 
@@ -83,6 +84,11 @@ class IllustriousTrainer {
         const quickFeedback = document.getElementById('quick-feedback');
         if (quickFeedback) {
             quickFeedback.classList.add('hidden');
+        }
+        // Clear any pending quick feedback timeout
+        if (this.quickFeedbackTimeout) {
+            clearTimeout(this.quickFeedbackTimeout);
+            this.quickFeedbackTimeout = null;
         }
 
         if (view === 'study') {
@@ -314,15 +320,19 @@ class IllustriousTrainer {
         const feedbackEl = document.getElementById('quick-feedback');
         const iconEl = document.getElementById('quick-feedback-icon');
         
+        // Clear any existing timeout
+        if (this.quickFeedbackTimeout) {
+            clearTimeout(this.quickFeedbackTimeout);
+        }
+        
         iconEl.textContent = isCorrect ? '✅' : '❌';
         feedbackEl.classList.remove('hidden');
         
-        // Remove and re-add the element to restart animation
-        const newFeedbackEl = feedbackEl.cloneNode(true);
-        feedbackEl.parentNode.replaceChild(newFeedbackEl, feedbackEl);
+        // Force reflow to restart animation
+        void feedbackEl.offsetWidth;
         
-        setTimeout(() => {
-            newFeedbackEl.classList.add('hidden');
+        this.quickFeedbackTimeout = setTimeout(() => {
+            feedbackEl.classList.add('hidden');
         }, 500);
     }
 
