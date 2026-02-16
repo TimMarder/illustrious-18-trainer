@@ -82,8 +82,12 @@ class IllustriousTrainer {
         // Hide any visible feedback when switching views
         this.hideFeedback();
         const quickFeedback = document.getElementById('quick-feedback');
+        const quickIcon = document.getElementById('quick-feedback-icon');
         if (quickFeedback) {
             quickFeedback.classList.add('hidden');
+        }
+        if (quickIcon) {
+            quickIcon.classList.remove('animate');
         }
         // Clear any pending quick feedback timeout
         if (this.quickFeedbackTimeout) {
@@ -319,20 +323,19 @@ class IllustriousTrainer {
     showQuickFeedback(isCorrect) {
         const feedbackEl = document.getElementById('quick-feedback');
         const iconEl = document.getElementById('quick-feedback-icon');
-        
+
         // Clear any existing timeout
         if (this.quickFeedbackTimeout) {
             clearTimeout(this.quickFeedbackTimeout);
         }
-        
+
         iconEl.textContent = isCorrect ? '✅' : '❌';
         feedbackEl.classList.remove('hidden');
-        
-        // Force reflow to restart animation
-        void feedbackEl.offsetWidth;
-        
+        iconEl.classList.add('animate');
+
         this.quickFeedbackTimeout = setTimeout(() => {
             feedbackEl.classList.add('hidden');
+            iconEl.classList.remove('animate');
         }, 500);
     }
 

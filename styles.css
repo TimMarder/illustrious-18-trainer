@@ -749,8 +749,11 @@ body {
 .quick-feedback-icon {
     font-size: 32px;
     opacity: 0;
-    animation: quickFeedbackPop 0.5s ease-out;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.quick-feedback-icon.animate {
+    animation: quickFeedbackPop 0.5s ease-out;
 }
 
 @keyframes quickFeedbackPop {
