@@ -97,6 +97,7 @@ class IllustriousTrainer {
             hardTotalsToggle.addEventListener('change', (e) => {
                 this.enabledTypes.hardTotals = e.target.checked;
                 this.saveStats();
+                this.generateQuestion();
             });
         }
 
@@ -105,6 +106,7 @@ class IllustriousTrainer {
             doublesToggle.addEventListener('change', (e) => {
                 this.enabledTypes.doubles = e.target.checked;
                 this.saveStats();
+                this.generateQuestion();
             });
         }
 
@@ -113,6 +115,7 @@ class IllustriousTrainer {
             pairsToggle.addEventListener('change', (e) => {
                 this.enabledTypes.pairs = e.target.checked;
                 this.saveStats();
+                this.generateQuestion();
             });
         }
 
@@ -121,6 +124,7 @@ class IllustriousTrainer {
             insuranceToggle.addEventListener('change', (e) => {
                 this.enabledTypes.insurance = e.target.checked;
                 this.saveStats();
+                this.generateQuestion();
             });
         }
 
@@ -155,6 +159,9 @@ class IllustriousTrainer {
             tcFromInput.addEventListener('change', (e) => {
                 this.customTcFrom = parseInt(e.target.value) || -4;
                 this.saveStats();
+                if (this.customMode) {
+                    this.generateQuestion();
+                }
             });
         }
 
@@ -163,6 +170,9 @@ class IllustriousTrainer {
             tcToInput.addEventListener('change', (e) => {
                 this.customTcTo = parseInt(e.target.value) || 4;
                 this.saveStats();
+                if (this.customMode) {
+                    this.generateQuestion();
+                }
             });
         }
 
@@ -431,9 +441,7 @@ class IllustriousTrainer {
             this.showFeedback(isCorrect, answer);
         } else {
             this.showQuickFeedback(isCorrect);
-            setTimeout(() => {
-                this.generateQuestion();
-            }, 600);
+            this.generateQuestion();
         }
         
         this.saveStats();
