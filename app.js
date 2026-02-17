@@ -16,12 +16,32 @@ class IllustriousTrainer {
         this.showExplanations = true;
         this.quickFeedbackTimeout = null;
 
+        // Deviation type toggles (all on by default)
+        this.enabledTypes = {
+            hardTotals: true,
+            doubles: true,
+            pairs: true,
+            insurance: true
+        };
+
+        // Custom mode settings
+        this.customMode = false;
+        this.customDeviationId = 2; // Default to 16 vs 10
+        this.customTcFrom = -4;
+        this.customTcTo = 4;
+
+        // Theme (dark by default)
+        this.darkMode = true;
+
         this.init();
     }
 
     init() {
         this.loadStats();
         this.setupEventListeners();
+        this.populateCustomDeviationDropdown();
+        this.applyTheme();
+        this.updateCustomModePanel();
         this.generateQuestion();
         this.updateUI();
     }
@@ -62,7 +82,7 @@ class IllustriousTrainer {
             }
         });
 
-        // Settings toggle
+        // Settings toggles
         const explanationsToggle = document.getElementById('show-explanations');
         if (explanationsToggle) {
             explanationsToggle.addEventListener('change', (e) => {
@@ -70,6 +90,105 @@ class IllustriousTrainer {
                 this.saveStats();
             });
         }
+
+        // Deviation type toggles
+        const hardTotalsToggle = document.getElementById('enable-hard-totals');
+        if (hardTotalsToggle) {
+            hardTotalsToggle.addEventListener('change', (e) => {
+                this.enabledTypes.hardTotals = e.target.checked;
+                this.saveStats();
+            });
+        }
+
+        const doublesToggle = document.getElementById('enable-doubles');
+        if (doublesToggle) {
+            doublesToggle.addEventListener('change', (e) => {
+                this.enabledTypes.doubles = e.target.checked;
+                this.saveStats();
+            });
+        }
+
+        const pairsToggle = document.getElementById('enable-pairs');
+        if (pairsToggle) {
+            pairsToggle.addEventListener('change', (e) => {
+                this.enabledTypes.pairs = e.target.checked;
+                this.saveStats();
+            });
+        }
+
+        const insuranceToggle = document.getElementById('enable-insurance');
+        if (insuranceToggle) {
+            insuranceToggle.addEventListener('change', (e) => {
+                this.enabledTypes.insurance = e.target.checked;
+                this.saveStats();
+            });
+        }
+
+        // Custom mode toggle
+        const customModeToggle = document.getElementById('custom-mode');
+        if (customModeToggle) {
+            customModeToggle.addEventListener('change', (e) => {
+                this.customMode = e.target.checked;
+                this.updateCustomModePanel();
+                this.saveStats();
+                if (this.customMode) {
+                    this.generateQuestion();
+                }
+            });
+        }
+
+        // Custom deviation dropdown
+        const customDeviationSelect = document.getElementById('custom-deviation');
+        if (customDeviationSelect) {
+            customDeviationSelect.addEventListener('change', (e) => {
+                this.customDeviationId = parseInt(e.target.value);
+                this.saveStats();
+                if (this.customMode) {
+                    this.generateQuestion();
+                }
+            });
+        }
+
+        // Custom true count range inputs
+        const tcFromInput = document.getElementById('custom-tc-from');
+        if (tcFromInput) {
+            tcFromInput.addEventListener('change', (e) => {
+                this.customTcFrom = parseInt(e.target.value) || -4;
+                this.saveStats();
+            });
+        }
+
+        const tcToInput = document.getElementById('custom-tc-to');
+        if (tcToInput) {
+            tcToInput.addEventListener('change', (e) => {
+                this.customTcTo = parseInt(e.target.value) || 4;
+                this.saveStats();
+            });
+        }
+
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('dark-mode');
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('change', (e) => {
+                this.darkMode = e.target.checked;
+                this.applyTheme();
+                this.saveStats();
+            });
+        }
+    }
+
+    getDeviationType(deviation) {
+        if (deviation.playerHand === 'Any') return 'insurance';
+        if (deviation.playerHand.includes(',')) return 'pairs';
+        if (deviation.deviation === 'Double') return 'doubles';
+        return 'hardTotals';
+    }
+
+    getEnabledDeviations() {
+        return ILLUSTRIOUS_18.filter(d => {
+            const type = this.getDeviationType(d);
+            return this.enabledTypes[type];
+        });
     }
 
     switchView(view) {
@@ -104,28 +223,79 @@ class IllustriousTrainer {
         }
     }
 
-    generateQuestion() {
-        // Pick a random deviation
-        let deviation = ILLUSTRIOUS_18[Math.floor(Math.random() * ILLUSTRIOUS_18.length)];
-        
-        // Reduce insurance frequency to ~2% (insurance is 1/18 = 5.5%, so only accept it 36% of the time)
-        if (deviation.id === 1 && Math.random() > 0.36) {
-            // Pick a non-insurance deviation instead
-            const nonInsuranceDeviations = ILLUSTRIOUS_18.filter(d => d.id !== 1);
-            deviation = nonInsuranceDeviations[Math.floor(Math.random() * nonInsuranceDeviations.length)];
+    updateCustomModePanel() {
+        const panel = document.getElementById('custom-mode-panel');
+        if (panel) {
+            if (this.customMode) {
+                panel.classList.remove('hidden');
+            } else {
+                panel.classList.add('hidden');
+            }
         }
-        
-        // Generate true count - include edge cases 40% of the time
-        const isEdgeCase = Math.random() < 0.4;
+    }
+
+    populateCustomDeviationDropdown() {
+        const select = document.getElementById('custom-deviation');
+        if (!select) return;
+
+        select.innerHTML = '';
+        ILLUSTRIOUS_18.forEach(d => {
+            const option = document.createElement('option');
+            option.value = d.id;
+            option.textContent = d.name;
+            if (d.id === this.customDeviationId) {
+                option.selected = true;
+            }
+            select.appendChild(option);
+        });
+    }
+
+    generateQuestion() {
+        let deviation;
         let trueCount;
-        
-        if (isEdgeCase) {
-            // Generate true count near the index (-2 to +2)
-            const offset = Math.floor(Math.random() * 5) - 2;
-            trueCount = deviation.index + offset;
+
+        if (this.customMode) {
+            // Use the selected deviation
+            deviation = ILLUSTRIOUS_18.find(d => d.id === this.customDeviationId);
+            if (!deviation) deviation = ILLUSTRIOUS_18[0];
+
+            // Generate true count within the custom range
+            const from = Math.min(this.customTcFrom, this.customTcTo);
+            const to = Math.max(this.customTcFrom, this.customTcTo);
+            const range = to - from + 1;
+            trueCount = Math.floor(Math.random() * range) + from;
         } else {
-            // Random true count between -5 and +8
-            trueCount = Math.floor(Math.random() * 14) - 5;
+            // Get deviations filtered by enabled types
+            const enabledDeviations = this.getEnabledDeviations();
+            
+            if (enabledDeviations.length === 0) {
+                // Fallback if no types enabled
+                deviation = ILLUSTRIOUS_18[0];
+            } else {
+                // Pick a random deviation from enabled types
+                deviation = enabledDeviations[Math.floor(Math.random() * enabledDeviations.length)];
+            }
+            
+            // Reduce insurance frequency to ~2% (insurance is 1/18 = 5.5%, so only accept it 36% of the time)
+            if (deviation.id === 1 && Math.random() > 0.36) {
+                // Pick a non-insurance deviation instead
+                const nonInsuranceDeviations = enabledDeviations.filter(d => d.id !== 1);
+                if (nonInsuranceDeviations.length > 0) {
+                    deviation = nonInsuranceDeviations[Math.floor(Math.random() * nonInsuranceDeviations.length)];
+                }
+            }
+            
+            // Generate true count - include edge cases 40% of the time
+            const isEdgeCase = Math.random() < 0.4;
+            
+            if (isEdgeCase) {
+                // Generate true count near the index (-2 to +2)
+                const offset = Math.floor(Math.random() * 5) - 2;
+                trueCount = deviation.index + offset;
+            } else {
+                // Random true count between -5 and +8
+                trueCount = Math.floor(Math.random() * 14) - 5;
+            }
         }
         
         // Determine correct answer
@@ -366,7 +536,8 @@ class IllustriousTrainer {
         
         if (filter !== 'all') {
             deviations = deviations.filter(d => {
-                if (filter === 'hard') return !d.playerHand.includes('A') && !d.playerHand.includes(',');
+                if (filter === 'hard') return !d.playerHand.includes('A') && !d.playerHand.includes(',') && d.deviation !== 'Double';
+                if (filter === 'doubles') return d.deviation === 'Double';
                 if (filter === 'pairs') return d.playerHand.includes(',');
                 if (filter === 'insurance') return d.playerHand === 'Any';
                 return true;
@@ -425,6 +596,14 @@ class IllustriousTrainer {
         }).join('');
     }
 
+    applyTheme() {
+        if (this.darkMode) {
+            document.documentElement.removeAttribute('data-theme');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    }
+
     saveStats() {
         const data = {
             score: this.score,
@@ -434,7 +613,13 @@ class IllustriousTrainer {
             correctAnswers: this.correctAnswers,
             questionHistory: this.questionHistory.slice(-100), // Keep last 100
             weakSpots: Array.from(this.weakSpots.entries()),
-            showExplanations: this.showExplanations
+            showExplanations: this.showExplanations,
+            enabledTypes: this.enabledTypes,
+            customMode: this.customMode,
+            customDeviationId: this.customDeviationId,
+            customTcFrom: this.customTcFrom,
+            customTcTo: this.customTcTo,
+            darkMode: this.darkMode
         };
         localStorage.setItem('i18-trainer-stats', JSON.stringify(data));
     }
@@ -451,11 +636,58 @@ class IllustriousTrainer {
             this.questionHistory = parsed.questionHistory || [];
             this.weakSpots = new Map(parsed.weakSpots || []);
             this.showExplanations = parsed.showExplanations !== undefined ? parsed.showExplanations : true;
+            this.enabledTypes = parsed.enabledTypes || { hardTotals: true, doubles: true, pairs: true, insurance: true };
+            this.customMode = parsed.customMode || false;
+            this.customDeviationId = parsed.customDeviationId || 2;
+            this.customTcFrom = parsed.customTcFrom !== undefined ? parsed.customTcFrom : -4;
+            this.customTcTo = parsed.customTcTo !== undefined ? parsed.customTcTo : 4;
+            this.darkMode = parsed.darkMode !== undefined ? parsed.darkMode : true;
             
-            // Update toggle to match loaded setting
-            const toggle = document.getElementById('show-explanations');
-            if (toggle) {
-                toggle.checked = this.showExplanations;
+            // Update toggles to match loaded settings
+            const explanationsToggle = document.getElementById('show-explanations');
+            if (explanationsToggle) {
+                explanationsToggle.checked = this.showExplanations;
+            }
+
+            const hardTotalsToggle = document.getElementById('enable-hard-totals');
+            if (hardTotalsToggle) {
+                hardTotalsToggle.checked = this.enabledTypes.hardTotals;
+            }
+
+            const doublesToggle = document.getElementById('enable-doubles');
+            if (doublesToggle) {
+                doublesToggle.checked = this.enabledTypes.doubles;
+            }
+
+            const pairsToggle = document.getElementById('enable-pairs');
+            if (pairsToggle) {
+                pairsToggle.checked = this.enabledTypes.pairs;
+            }
+
+            const insuranceToggle = document.getElementById('enable-insurance');
+            if (insuranceToggle) {
+                insuranceToggle.checked = this.enabledTypes.insurance;
+            }
+
+            const customModeToggle = document.getElementById('custom-mode');
+            if (customModeToggle) {
+                customModeToggle.checked = this.customMode;
+            }
+
+            const darkModeToggle = document.getElementById('dark-mode');
+            if (darkModeToggle) {
+                darkModeToggle.checked = this.darkMode;
+            }
+
+            // Update custom mode inputs
+            const tcFromInput = document.getElementById('custom-tc-from');
+            if (tcFromInput) {
+                tcFromInput.value = this.customTcFrom;
+            }
+
+            const tcToInput = document.getElementById('custom-tc-to');
+            if (tcToInput) {
+                tcToInput.value = this.customTcTo;
             }
         }
     }
@@ -475,10 +707,40 @@ class IllustriousTrainer {
     }
 
     renderSettings() {
-        // Ensure toggle reflects current state
-        const toggle = document.getElementById('show-explanations');
-        if (toggle) {
-            toggle.checked = this.showExplanations;
+        // Ensure all toggles reflect current state
+        const explanationsToggle = document.getElementById('show-explanations');
+        if (explanationsToggle) {
+            explanationsToggle.checked = this.showExplanations;
+        }
+
+        const hardTotalsToggle = document.getElementById('enable-hard-totals');
+        if (hardTotalsToggle) {
+            hardTotalsToggle.checked = this.enabledTypes.hardTotals;
+        }
+
+        const doublesToggle = document.getElementById('enable-doubles');
+        if (doublesToggle) {
+            doublesToggle.checked = this.enabledTypes.doubles;
+        }
+
+        const pairsToggle = document.getElementById('enable-pairs');
+        if (pairsToggle) {
+            pairsToggle.checked = this.enabledTypes.pairs;
+        }
+
+        const insuranceToggle = document.getElementById('enable-insurance');
+        if (insuranceToggle) {
+            insuranceToggle.checked = this.enabledTypes.insurance;
+        }
+
+        const customModeToggle = document.getElementById('custom-mode');
+        if (customModeToggle) {
+            customModeToggle.checked = this.customMode;
+        }
+
+        const darkModeToggle = document.getElementById('dark-mode');
+        if (darkModeToggle) {
+            darkModeToggle.checked = this.darkMode;
         }
     }
 }

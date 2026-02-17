@@ -27,6 +27,29 @@
         <main class="main-content">
             <!-- Game View -->
             <div id="game-view" class="view active">
+                <!-- Custom Mode Panel -->
+                <div id="custom-mode-panel" class="custom-mode-panel hidden">
+                    <div class="custom-mode-header">
+                        <span class="custom-mode-badge">Custom Mode</span>
+                    </div>
+                    <div class="custom-mode-controls">
+                        <div class="custom-control">
+                            <label for="custom-deviation">Deviation</label>
+                            <select id="custom-deviation">
+                                <!-- Filled by JS -->
+                            </select>
+                        </div>
+                        <div class="custom-control">
+                            <label for="custom-count-from">True Count From</label>
+                            <input type="number" id="custom-count-from" min="-10" max="10" value="-5">
+                        </div>
+                        <div class="custom-control">
+                            <label for="custom-count-to">True Count To</label>
+                            <input type="number" id="custom-count-to" min="-10" max="10" value="5">
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Score Bar -->
                 <div class="score-bar">
                     <div class="stat">
@@ -152,6 +175,7 @@
                 <div class="chart-filters">
                     <button class="filter-btn active" data-filter="all">All</button>
                     <button class="filter-btn" data-filter="hard">Hard Totals</button>
+                    <button class="filter-btn" data-filter="doubles">Doubles</button>
                     <button class="filter-btn" data-filter="pairs">Pairs</button>
                     <button class="filter-btn" data-filter="insurance">Insurance</button>
                 </div>
@@ -219,6 +243,19 @@
                 </div>
 
                 <div class="settings-container">
+                    <!-- Theme Toggle -->
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Dark Mode</h4>
+                            <p>Toggle between dark and light theme.</p>
+                        </div>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="dark-mode-toggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- Show Explanations Toggle -->
                     <div class="setting-item">
                         <div class="setting-info">
                             <h4>Show Explanations</h4>
@@ -226,6 +263,66 @@
                         </div>
                         <label class="toggle-label">
                             <input type="checkbox" id="show-explanations" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- Custom Practice Mode Toggle -->
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Custom Practice Mode</h4>
+                            <p>Practice specific deviations with custom true count ranges.</p>
+                        </div>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="custom-mode-toggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- Deviation Type Toggles -->
+                    <div class="setting-item setting-category">
+                        <div class="setting-info">
+                            <h4>Practice Deviation Types</h4>
+                            <p>Select which types of deviations to include in practice.</p>
+                        </div>
+                    </div>
+                    <div class="setting-item sub-setting">
+                        <div class="setting-info">
+                            <h4>Hard Totals</h4>
+                            <p>Include hard total deviations like 16 vs 10, 15 vs 10, etc.</p>
+                        </div>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="type-hard" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item sub-setting">
+                        <div class="setting-info">
+                            <h4>Doubles</h4>
+                            <p>Include double down deviations like 10 vs 10, 11 vs A, etc.</p>
+                        </div>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="type-doubles" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item sub-setting">
+                        <div class="setting-info">
+                            <h4>Pairs</h4>
+                            <p>Include pair splitting deviations like 10,10 vs 5, 10,10 vs 6.</p>
+                        </div>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="type-pairs" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item sub-setting">
+                        <div class="setting-info">
+                            <h4>Insurance</h4>
+                            <p>Include insurance deviations.</p>
+                        </div>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="type-insurance" checked>
                             <span class="toggle-slider"></span>
                         </label>
                     </div>

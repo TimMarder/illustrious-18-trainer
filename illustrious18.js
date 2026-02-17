@@ -12,6 +12,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "No Insurance",
         deviation: "Take Insurance",
         index: 3,
+        type: "insurance",
         explanation: "When the true count is +3 or higher, the deck is rich in tens, making insurance a positive EV play."
     },
     {
@@ -22,6 +23,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Hit",
         deviation: "Stand",
         index: 0,
+        type: "hard",
         explanation: "At true count 0 or higher, standing on 16 vs 10 becomes the better play. The high count means more tens remain, making the dealer more likely to bust."
     },
     {
@@ -32,6 +34,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Hit",
         deviation: "Stand",
         index: 4,
+        type: "hard",
         explanation: "Only stand on 15 vs 10 when the true count is +4 or higher. This is a borderline play requiring a very high count."
     },
     {
@@ -42,6 +45,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Stand",
         deviation: "Split",
         index: 5,
+        type: "pairs",
         explanation: "Split tens against a 5 only at +5 or higher. This is a very aggressive play that signals a massive player edge."
     },
     {
@@ -52,6 +56,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Stand",
         deviation: "Split",
         index: 4,
+        type: "pairs",
         explanation: "Split tens against a 6 at +4 or higher. Slightly lower threshold than against a 5 due to the dealer's weaker position."
     },
     {
@@ -62,6 +67,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Hit",
         deviation: "Double",
         index: 4,
+        type: "doubles",
         explanation: "Double 10 vs 10 at +4 or higher. This is a very aggressive play requiring a massive player edge."
     },
     {
@@ -72,6 +78,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Hit",
         deviation: "Stand",
         index: 2,
+        type: "hard",
         explanation: "Stand on 12 vs 3 at +2 or higher. The dealer's weak upcard combined with a rich deck makes standing better."
     },
     {
@@ -82,6 +89,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Hit",
         deviation: "Stand",
         index: 3,
+        type: "hard",
         explanation: "Stand on 12 vs 2 at +3 or higher. The dealer's 2 is deceptively strong, requiring a higher count to deviate."
     },
     {
@@ -92,6 +100,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Hit",
         deviation: "Double",
         index: 1,
+        type: "doubles",
         explanation: "Double 11 vs Ace at +1 or higher. With a rich deck, doubling becomes profitable even against the dealer's strong ace."
     },
     {
@@ -102,6 +111,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Hit",
         deviation: "Double",
         index: 1,
+        type: "doubles",
         explanation: "Double 9 vs 2 at +1 or higher. The dealer's weak 2 makes this a profitable double with any positive count."
     },
     {
@@ -112,6 +122,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Hit",
         deviation: "Double",
         index: 4,
+        type: "doubles",
         explanation: "Double 10 vs Ace at +4 or higher. The ace is the dealer's strongest card, requiring a high count to double."
     },
     {
@@ -122,6 +133,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Hit",
         deviation: "Double",
         index: 3,
+        type: "doubles",
         explanation: "Double 9 vs 7 at +3 or higher. The 7 is weaker than it appears, and a high count makes doubling profitable."
     },
     {
@@ -132,6 +144,7 @@ const ILLUSTRIOUS_18 = [
         basicStrategy: "Hit",
         deviation: "Stand",
         index: 5,
+        type: "hard",
         explanation: "Stand on 16 vs 9 at +5 or higher. Against the dealer's strong 9, you need a very high count to stand."
     },
     {
@@ -143,6 +156,7 @@ const ILLUSTRIOUS_18 = [
         deviation: "Hit",
         index: -2,
         indexDirection: "below",
+        type: "hard",
         explanation: "Basic strategy is to stand on 13 vs 2. Only hit when the true count is below -2 (i.e., -2- or lower)."
     },
     {
@@ -154,6 +168,7 @@ const ILLUSTRIOUS_18 = [
         deviation: "Hit",
         index: 0,
         indexDirection: "below",
+        type: "hard",
         explanation: "Basic strategy is to stand on 12 vs 4. Only hit when the true count is 0 or lower (0-)."
     },
     {
@@ -165,6 +180,7 @@ const ILLUSTRIOUS_18 = [
         deviation: "Hit",
         index: -2,
         indexDirection: "below",
+        type: "hard",
         explanation: "Basic strategy is to stand on 12 vs 5. Only hit when the true count is below -2 (i.e., -2- or lower)."
     },
     {
@@ -176,6 +192,7 @@ const ILLUSTRIOUS_18 = [
         deviation: "Hit",
         index: -2,
         indexDirection: "below",
+        type: "hard",
         explanation: "Basic strategy is to stand on 12 vs 6. Only hit when the true count is below -2 (i.e., -2- or lower)."
     },
     {
@@ -187,6 +204,7 @@ const ILLUSTRIOUS_18 = [
         deviation: "Hit",
         index: -3,
         indexDirection: "below",
+        type: "hard",
         explanation: "Basic strategy is to stand on 13 vs 3. Only hit when the true count is below -3 (i.e., -3- or lower)."
     }
 ];
